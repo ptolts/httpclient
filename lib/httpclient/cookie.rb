@@ -92,7 +92,7 @@ class HTTPClient
     # same as HTTP::CookieJar::CookiestxtSaver
     def save(io, jar)
       jar.each { |cookie|
-        next if !@session && cookie.session?
+        # next if !@session && cookie.session?
         io.print cookie_to_record(cookie)
       }
     end
@@ -109,7 +109,7 @@ class HTTPClient
     def cookie_to_record(cookie)
       [
         cookie.origin,
-        cookie.name, 
+        cookie.name,
         cookie.value,
         cookie.expires.to_i,
         cookie.dot_domain,
