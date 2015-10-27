@@ -181,7 +181,7 @@ class WebAgent
       @name = $1.strip
       @value = normalize_cookie_value($3)
       cookie_elem.each{|pair|
-        key, value = pair.split(/=/, 2)  ## value may nil
+        key, value = pair.split(/\=/, 2)  ## value may nil
         key.strip!
         value = normalize_cookie_value(value)
         case key.downcase
@@ -260,16 +260,13 @@ class WebAgent
         end
         File.open(@cookies_file, 'w') do |f|
           @cookies.each do |cookie|
-            if (cookie.use? or save_unused) and
-              (!cookie.discard? or save_discarded)
-              f.print(cookie.url.to_s,"\t",
-                      cookie.name,"\t",
-                      cookie.value,"\t",
-                      cookie.expires.to_i,"\t",
-                      cookie.domain,"\t",
-                      cookie.path,"\t",
-                      cookie.flag,"\n")
-            end
+            f.print(cookie.url.to_s,"\t",
+                    cookie.name,"\t",
+                    cookie.value,"\t",
+                    cookie.expires.to_i,"\t",
+                    cookie.domain,"\t",
+                    cookie.path,"\t",
+                    cookie.flag,"\n")
           end
         end
       end
